@@ -23,11 +23,10 @@ import org.apache.maven.plugin.dependency.fromDependencies.AbstractDependencyFil
 import org.apache.maven.plugin.dependency.utils.DependencyStatusSets;
 import org.apache.maven.plugin.dependency.utils.filters.ResolveFileFilter;
 import org.apache.maven.plugin.dependency.utils.markers.SourcesFileMarkerHandler;
-import org.apache.maven.plugins.annotations.LifecyclePhase;
-import org.apache.maven.plugins.annotations.Mojo;
-import org.apache.maven.plugins.annotations.Parameter;
-import org.apache.maven.plugins.annotations.ResolutionScope;
+import org.apache.maven.plugins.annotations.*;
+import org.apache.maven.project.MavenProjectHelper;
 import org.apache.maven.shared.artifact.filter.collection.ArtifactsFilter;
+import org.codehaus.plexus.archiver.Archiver;
 import org.codehaus.plexus.util.FileUtils;
 import org.codehaus.plexus.util.IOUtil;
 import org.codehaus.plexus.util.StringUtils;
@@ -41,6 +40,8 @@ import java.nio.file.attribute.PosixFilePermissions;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.regex.Matcher;
+
+import static org.codehaus.plexus.archiver.util.DefaultFileSet.fileSet;
 
 /**
  * Builds a hawt boot assembly.
@@ -59,11 +60,29 @@ public class BuildMojo extends AbstractDependencyFilterMojo {
                 defaultValue = "${project.build.directory}/hawt-boot" )
     protected File assembly;
 
+    @Parameter( property = "hawt-boot.archive",
+                defaultValue = "${project.build.directory}/${project.artifactId}-${project.version}-app.tar.gz" )
+    protected File archive;
+
+    @Parameter( property = "hawt-boot.archiveClassifier",
+                defaultValue = "app" )
+    protected String archiveClassifier;
+
+    @Parameter( property = "hawt-boot.archivePrefix",
+                defaultValue = "${project.artifactId}-${project.version}-app/" )
+    protected String archivePrefix;
+
     /**
      * The main class to execute for the assembly.
      */
     @Parameter(property = "hawt-boot.main")
     protected String main;
+
+    @Component(role= Archiver.class, hint = "tar")
+    protected Archiver archiver;
+
+    @Component
+    private MavenProjectHelper projectHelper;
 
     protected void doExecute() throws MojoExecutionException {
 
@@ -129,6 +148,16 @@ public class BuildMojo extends AbstractDependencyFilterMojo {
         copyResource("bin/run", new File(binDir, "run"), "\n", interpolations);
         chmodExecutable(new File(binDir, "run"));
 
+        archiver.setDestFile(archive);
+        archiver.addFileSet(fileSet(assembly).prefixed(archivePrefix).includeExclude(null, new String[]{"bin/*"}).includeEmptyDirs(true));
+        archiver.setFileMode(0755);
+        archiver.addFileSet(fileSet(assembly).prefixed(archivePrefix).includeExclude(new String[]{"bin/*"}, null).includeEmptyDirs(true));
+        try {
+            archiver.createArchive();
+        } catch (IOException e) {
+            throw new MojoExecutionException("Could create the "+archive+" file", e);
+        }
+        projectHelper.attachArtifact(project, "tar.gz", archiveClassifier, archive);
     }
 
     private void chmodExecutable(File file) {
