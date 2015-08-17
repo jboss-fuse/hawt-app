@@ -16,6 +16,7 @@ JVM_AGENT="$JVM_AGENT"
 SYSTEM_PROPERTIES="$SYSTEM_PROPERTIES"
 MAIN="${mvn.main}"
 MAIN_ARGS="$MAIN_ARGS"
+SERVICE="${mvn.artifactId}"
 
 IFS=$'\r\n'
 CLASSPATH=""
@@ -60,12 +61,12 @@ if [ ! -z "$APP_USER" -a ! `id -un` = "$APP_USER" ] ; then
   exec sudo -n -u ${APP_USER} $0 $@
 fi
 
-EXEC="exec"
+EXEC_ARGS=""
 if [ ! -z "${SERVICE}" ] ; then
     # Not all shells support the 'exec -a newname' syntax..
     `exec -a test echo test 2> /dev/null`
     if [ "$?" -eq "1" ] ; then
-      EXEC="exec -a apollo"
+      EXEC_ARGS="-a ${SERVICE}"
     else
       # Lets switch to bash if you have it installed...
       if [ -f "/bin/bash" ] ; then
@@ -76,10 +77,9 @@ fi
 
 echo "Booting application in folder: $APP_HOME"
 if [ ! -z "${MAIN_ARGS}" ] ; then
-  echo "Running $EXEC ${JVM_EXEC} ${JVM_DEBUG_ARGS} ${JVM_AGENT} ${JVM_ARGS} ${SYSTEM_PROPERTIES} -classpath ${CLASSPATH} ${MAIN} ${MAIN_ARGS}"
-  $EXEC ${JVM_EXEC} ${JVM_DEBUG_ARGS} ${JVM_AGENT} ${JVM_ARGS} ${SYSTEM_PROPERTIES} -classpath ${CLASSPATH} ${MAIN} ${MAIN_ARGS}
+  echo "Running exec ${EXEC_ARGS} ${JVM_DEBUG_ARGS} ${JVM_AGENT} ${JVM_ARGS} ${SYSTEM_PROPERTIES} -classpath ${CLASSPATH} ${MAIN} ${MAIN_ARGS}"
+  exec ${EXEC_ARGS} ${JVM_EXEC} ${JVM_DEBUG_ARGS} ${JVM_AGENT} ${JVM_ARGS} ${SYSTEM_PROPERTIES} -classpath ${CLASSPATH} ${MAIN} ${MAIN_ARGS}
 else
-  echo "Running $EXEC ${JVM_EXEC} ${JVM_DEBUG_ARGS} ${JVM_AGENT} ${JVM_ARGS} ${SYSTEM_PROPERTIES} -classpath ${CLASSPATH} ${MAIN} $@"
-  $EXEC ${JVM_EXEC} ${JVM_DEBUG_ARGS} ${JVM_AGENT} ${JVM_ARGS} ${SYSTEM_PROPERTIES} -classpath ${CLASSPATH} ${MAIN} $@
+  echo "Running exec ${EXEC_ARGS} ${JVM_EXEC} ${JVM_DEBUG_ARGS} ${JVM_AGENT} ${JVM_ARGS} ${SYSTEM_PROPERTIES} -classpath ${CLASSPATH} ${MAIN} $@"
+  exec ${EXEC_ARGS} ${JVM_EXEC} ${JVM_DEBUG_ARGS} ${JVM_AGENT} ${JVM_ARGS} ${SYSTEM_PROPERTIES} -classpath ${CLASSPATH} ${MAIN} $@
 fi
-

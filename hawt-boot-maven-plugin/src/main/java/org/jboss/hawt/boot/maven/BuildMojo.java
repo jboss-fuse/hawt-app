@@ -121,6 +121,7 @@ public class BuildMojo extends AbstractDependencyFilterMojo {
         }
 
         HashMap<String, String> interpolations = new HashMap<String, String>();
+        interpolations.put("mvn.artifactId", project.getArtifactId());
         if( main!=null ) {
             interpolations.put("mvn.main", main);
         }
