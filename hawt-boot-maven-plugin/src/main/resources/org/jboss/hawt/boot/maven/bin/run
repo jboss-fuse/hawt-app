@@ -24,13 +24,19 @@ for file in `cat ${APP_HOME}/lib/.classpath` ; do
     CLASSPATH="$CLASSPATH:${APP_HOME}/lib/$file"
 done
 
+# Source the /etc/defaults script if it exists so it can modify the
+# env vars setup so far..
+if [ -z "${APP_HOME}/etc/defaults" ] ; then
+    source ${APP_HOME}/etc/defaults
+fi
+
 # Add the jolokia if found in the app and configured.
 if [ -f "$APP_HOME/lib/jolokia-agent.jar" ]; then
     if [ -z "$JOLOKIA_PORT" ]; then
       JOLOKIA_ARGS=""
     else
       if [ -z "$AGENT_ID" ]; then
-        AGENT_ID=`basename APP_HOME`
+        AGENT_ID="${SERVICE}"
       fi
       JOLOKIA_ARGS="-javaagent:$APP_HOME/jolokia-agent.jar=host=0.0.0.0,port=$JOLOKIA_PORT,agentId=$AGENT_ID"
     fi
@@ -47,13 +53,6 @@ if [ -z "$JVM_DEBUG_ARGS" ]; then
   if [ ! -z "$JVM_DEBUG" ] && [ "$JVM_DEBUG" == 'TRUE' ]; then
     JVM_DEBUG_ARGS='-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5005'
   fi
-fi
-
-# Source the /etc/defaults script if it exists so it can modify the
-# env vars setup so far..
-
-if [ -z "${APP_HOME}/etc/defaults" ] ; then
-    source ${APP_HOME}/etc/defaults
 fi
 
 if [ ! -z "$APP_USER" -a ! `id -un` = "$APP_USER" ] ; then
