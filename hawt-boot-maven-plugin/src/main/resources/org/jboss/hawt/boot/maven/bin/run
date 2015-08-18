@@ -26,7 +26,7 @@ done
 
 # Source the /etc/defaults script if it exists so it can modify the
 # env vars setup so far..
-if [ -z "${APP_HOME}/etc/defaults" ] ; then
+if [ -f "${APP_HOME}/etc/defaults" ] ; then
     source ${APP_HOME}/etc/defaults
 fi
 

@@ -159,7 +159,7 @@ public class BuildMojo extends AbstractDependencyFilterMojo {
 
         if( source!=null && source.exists() ) {
             try {
-                FileUtils.copyDirectory(source, assembly);
+                FileUtils.copyDirectoryStructure(source, assembly);
             } catch (IOException e) {
                 throw new MojoExecutionException("Could copy the hawt-boot resources", e);
             }
