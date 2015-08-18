@@ -23,7 +23,7 @@ Usage
 You can use it on any maven module which contains a class that can be run from the CLI.  You just need to let it know
 which main class to use.  For example:
 
-    mvn package org.jboss.hawt.app:hawt-app-maven-plugin:1.0:build -Dhawt-app.main=org.apache.camel.cdi.Main
+    mvn package org.jboss.hawt.app:hawt-app-maven-plugin:1.1:build -Dhawt-app.main=org.apache.camel.cdi.Main
     
 
 To create the app as part of you default build for the module, add the a plugin configuration similar to the following in your maven module:
@@ -31,7 +31,7 @@ To create the app as part of you default build for the module, add the a plugin 
     <plugin>
       <groupId>org.jboss.hawt.app</groupId>
       <artifactId>hawt-app-maven-plugin</artifactId>
-      <version>1.0</version>
+      <version>1.1</version>
       <executions>
         <execution>
           <goals>
