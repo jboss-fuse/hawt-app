@@ -1,25 +1,37 @@
 Hawt App
 ========
 
-Makes it easy to create and launch simple flat classpath based main app in java.  It creates a .tar.gz that contains all your app's runtime
-dependencies in the lib dir and creates a bin/run script that handles setting up your classpath in the right order and executing your
-java with the right arguments if your using a [Maven](http://maven.apache.org) based build
+The Hawt App maven(http://maven.apache.org) based build plugin makes it easy to create and 
+launch simple java apps that use a flat classpath and a class with a
+main.  It handles creating a `tar.gz` archive that contains all your app's 
+runtime dependencies in the lib directory and creates a `bin/run` script that handles setting 
+up your classpath in the right order and executing the process java.
+
+Produced Artifacts
+------------------
+
+Using the build goal of this plugin will create the following:
+
+* an unpacked assembly of the app in the `target/hawt-app` directory.
+* a tar.gz archive of that assembly directory at: `target/${project.artifactId}-${project.version}-app.tar.gz` 
+
+If you want to test out launching your app, just  execute the `target/hawt-app/bin/run` script.
 
 Usage
 -------
 
-You can use it on any mvn module which contains a class that can be run from the CLI.  For example if your class containning is `org.apache.camel.cdi.Main`, then 
-run:
+You can use it on any maven module which contains a class that can be run from the CLI.  You just need to let it know
+which main class to use.  For example:
 
-    mvn package org.jboss.hawt.app:hawt-app-maven-plugin:1.0-SNAPSHOT:build -Dhawt-app.main=org.apache.camel.cdi.Main
+    mvn package org.jboss.hawt.app:hawt-app-maven-plugin:1.0:build -Dhawt-app.main=org.apache.camel.cdi.Main
     
 
-To create the application archive as part of you default build for the module, add the a plugin confiuration similar to the following to your maven module:
+To create the app as part of you default build for the module, add the a plugin configuration similar to the following in your maven module:
 
     <plugin>
       <groupId>org.jboss.hawt.app</groupId>
       <artifactId>hawt-app-maven-plugin</artifactId>
-      <version>1.0-SNAPSHOT</version>
+      <version>1.0</version>
       <executions>
         <execution>
           <goals>
@@ -33,16 +45,10 @@ To create the application archive as part of you default build for the module, a
       </configuration>
     </plugin>
 
-Produced Artifacts
-------------------
-
-Using the build goal of this plugin will create a tar.gz archive at: `target/${project.artifactId}-${project.version}-app.tar.gz` and an unpacked version of that at `target/hawt-app`.  If you want to test out launching your app, just
-execute the `target/hawt-app/bin/run` script.
-
 Plugin Configuration Options
 ----------------------------
 
-The following table contains the configuration properties you can set either in the plugin configuration or via a command line Maven propery to adjust the results of the built application archive.
+The following table contains the configuration properties you can set either in the plugin configuration or via a command line Maven property to adjust the results of the built application archive.
 
 Name | Maven Property | Description 
 -----| -------------- | -----------
@@ -56,25 +62,24 @@ source | hawt-app.source | If this directory exists, then it's contents are used
 Env Configuration Options
 -------------------------
 
-There are several enviorment variables that can be set before running the `bin\run` script to customize your app's startup.  
+There are several environment variables that can be set before running the `bin\run` script to customize your app's startup.  
 
-Enviorment Variable | Description
-------------------- | -----------
+Environment Variable | Description
+-------------------- | -----------
 JVM_ARGS | Options that will be passed to the JVM.  Use it to set options like the max JVM memory (-Xmx1G).
 JVM_DEBUG_ARGS | JVM debug arguments
 JVM_DEBUG | If set to true, then enables JVM debug on port 5005
 JVM_AGENT | Set this to pass any JVM agent arguments for stuff like profilers
-SYSTEM_PROPERTIES | Add your '-D' system properties in this enviorment varible.
 MAIN_ARGS | Arguments that will be passed to you application's main method.  **Default:** the arguments passed to the `bin/run` script.
 
 Runtime Defaults Configuration
 ------------------------------
 
 If an `${APP_HOME}/etc/defaults` file exists it will be sourced in by the run script and you can use this to set
-all the environment variables if you wish.  You can additonally also modify the values of the following variables if you want to change the defaults.
+all the environment variables if you wish.  You can additionally also modify the values of the following variables if you want to change the defaults.
 
-Enviorment Variable | Description
-------------------- | -----------
+Environment Variable | Description
+-------------------- | -----------
 MAIN | The main class that will be executed.
 APP | The name of this app, if supported by your system this will be displayed as the process name. **Default:** *${project.artifactId}*
 CLASSPATH | The classpath of the java application
