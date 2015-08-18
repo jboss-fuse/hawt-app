@@ -16,7 +16,7 @@ JVM_AGENT="$JVM_AGENT"
 SYSTEM_PROPERTIES="$SYSTEM_PROPERTIES"
 MAIN="${mvn.main}"
 MAIN_ARGS="$MAIN_ARGS"
-SERVICE="${mvn.artifactId}"
+APP="${mvn.artifactId}"
 
 IFS=$'\r\n'
 CLASSPATH=""
@@ -36,7 +36,7 @@ if [ -f "$APP_HOME/lib/jolokia-agent.jar" ]; then
       JOLOKIA_ARGS=""
     else
       if [ -z "$AGENT_ID" ]; then
-        AGENT_ID="${SERVICE}"
+        AGENT_ID="${APP}"
       fi
       JOLOKIA_ARGS="-javaagent:$APP_HOME/jolokia-agent.jar=host=0.0.0.0,port=$JOLOKIA_PORT,agentId=$AGENT_ID"
     fi
@@ -61,11 +61,11 @@ if [ ! -z "$APP_USER" -a ! `id -un` = "$APP_USER" ] ; then
 fi
 
 EXEC_ARGS=""
-if [ ! -z "${SERVICE}" ] ; then
+if [ ! -z "${APP}" ] ; then
     # Not all shells support the 'exec -a newname' syntax..
     `exec -a test echo test 2> /dev/null`
     if [ "$?" -eq "1" ] ; then
-      EXEC_ARGS="-a ${SERVICE}"
+      EXEC_ARGS="-a ${APP}"
     else
       # Lets switch to bash if you have it installed...
       if [ -f "/bin/bash" ] ; then

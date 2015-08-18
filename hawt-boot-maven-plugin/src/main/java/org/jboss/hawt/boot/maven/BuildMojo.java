@@ -52,6 +52,15 @@ import static org.codehaus.plexus.archiver.util.DefaultFileSet.fileSet;
 public class BuildMojo extends AbstractDependencyFilterMojo {
 
     /**
+     * Directory of resources use to augment the files in the hawt-boot archive.
+     *
+     * @since 2.0
+     */
+    @Parameter( property = "hawt-boot.source",
+                defaultValue = "${basedir}/src/main/hawt-boot" )
+    protected File source;
+
+    /**
      * Directory used to create the assembly.
      *
      * @since 2.0
@@ -148,6 +157,14 @@ public class BuildMojo extends AbstractDependencyFilterMojo {
         copyResource("bin/run", new File(binDir, "run"), "\n", interpolations);
         chmodExecutable(new File(binDir, "run"));
 
+        if( source!=null && source.exists() ) {
+            try {
+                FileUtils.copyDirectory(source, assembly);
+            } catch (IOException e) {
+                throw new MojoExecutionException("Could copy the hawt-boot resources", e);
+            }
+        }
+
         archiver.setDestFile(archive);
         archiver.addFileSet(fileSet(assembly).prefixed(archivePrefix).includeExclude(null, new String[]{"bin/*"}).includeEmptyDirs(true));
         archiver.setFileMode(0755);
@@ -155,7 +172,7 @@ public class BuildMojo extends AbstractDependencyFilterMojo {
         try {
             archiver.createArchive();
         } catch (IOException e) {
-            throw new MojoExecutionException("Could create the "+archive+" file", e);
+            throw new MojoExecutionException("Could not create the "+archive+" file", e);
         }
         projectHelper.attachArtifact(project, "tar.gz", archiveClassifier, archive);
     }

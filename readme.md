@@ -51,6 +51,7 @@ archive | hawt-boot.archive | Archive file that will be created. **Default:** *$
 archiveClassifier | hawt-boot.archiveClassifier | The GAV classifier that will be assigned to the archive. **Default:** *app*
 archivePrefix | hawt-boot.archivePrefix | the path prefixed on the files within the archive. **Default:** *${project.artifactId}-${project.version}-app/*
 main | hawt-boot.main | The main class that will be executed by the boot process.
+source | hawt-boot.source | If this directory exists, then it's contents are used to augment the contents of the application assembly. **Default:** *${basedir}/src/main/hawt-boot*
 
 Env Configuration Options
 -------------------------
