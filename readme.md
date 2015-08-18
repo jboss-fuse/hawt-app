@@ -44,11 +44,11 @@ Plugin Configuration Options
 
 The following table contains the configuration properties you can set either in the plugin configuration or via a command line Maven propery to adjust the results of the built application archive.
 
-Name | Maven Property | Default | Description 
------| -------------- | ------- | -----------
-assembly | hawt-boot.assembly | ${project.build.directory}/hawt-boot | Directory where the application assembly will be created
-archive | hawt-boot.archive | ${project.build.directory}/${project.artifactId}-${project.version}-app.tar.gz | Archive file that will be created
-archiveClassifier | hawt-boot.archiveClassifier | app | The GAV classifier that will be assigned to the archive.
-archivePrefix | hawt-boot.archivePrefix | ${project.artifactId}-${project.version}-app/ | the path prefixed on the files within the archive.
-main | hawt-boot.main | | The main class that will be executed by the boot process.
+Name | Maven Property | Description 
+-----| -------------- | -----------
+assembly | hawt-boot.assembly | Directory where the application assembly will be created. *Default:* ~${project.build.directory}/hawt-boot~
+archive | hawt-boot.archive | Archive file that will be created. *Default:* ~${project.build.directory}/${project.artifactId}-${project.version}-app.tar.gz~
+archiveClassifier | hawt-boot.archiveClassifier | The GAV classifier that will be assigned to the archive. *Default:* ~app~
+archivePrefix | hawt-boot.archivePrefix | the path prefixed on the files within the archive. Default:* ~${project.artifactId}-${project.version}-app/ ~
+main | hawt-boot.main | The main class that will be executed by the boot process.
 
