@@ -17,20 +17,6 @@
 
 package org.jboss.hawt.app.maven;
 
-import org.apache.maven.artifact.Artifact;
-import org.apache.maven.plugin.MojoExecutionException;
-import org.apache.maven.plugin.dependency.fromDependencies.AbstractDependencyFilterMojo;
-import org.apache.maven.plugin.dependency.utils.DependencyStatusSets;
-import org.apache.maven.plugin.dependency.utils.filters.ResolveFileFilter;
-import org.apache.maven.plugin.dependency.utils.markers.SourcesFileMarkerHandler;
-import org.apache.maven.plugins.annotations.*;
-import org.apache.maven.project.MavenProjectHelper;
-import org.apache.maven.shared.artifact.filter.collection.ArtifactsFilter;
-import org.codehaus.plexus.archiver.Archiver;
-import org.codehaus.plexus.util.FileUtils;
-import org.codehaus.plexus.util.IOUtil;
-import org.codehaus.plexus.util.StringUtils;
-
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -40,6 +26,24 @@ import java.nio.file.attribute.PosixFilePermissions;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.regex.Matcher;
+
+import org.apache.maven.artifact.Artifact;
+import org.apache.maven.plugin.MojoExecutionException;
+import org.apache.maven.plugin.dependency.fromDependencies.AbstractDependencyFilterMojo;
+import org.apache.maven.plugin.dependency.utils.DependencyStatusSets;
+import org.apache.maven.plugin.dependency.utils.filters.ResolveFileFilter;
+import org.apache.maven.plugin.dependency.utils.markers.SourcesFileMarkerHandler;
+import org.apache.maven.plugins.annotations.Component;
+import org.apache.maven.plugins.annotations.LifecyclePhase;
+import org.apache.maven.plugins.annotations.Mojo;
+import org.apache.maven.plugins.annotations.Parameter;
+import org.apache.maven.plugins.annotations.ResolutionScope;
+import org.apache.maven.project.MavenProjectHelper;
+import org.apache.maven.shared.artifact.filter.collection.ArtifactsFilter;
+import org.codehaus.plexus.archiver.Archiver;
+import org.codehaus.plexus.util.FileUtils;
+import org.codehaus.plexus.util.IOUtil;
+import org.codehaus.plexus.util.StringUtils;
 
 import static org.codehaus.plexus.archiver.util.DefaultFileSet.fileSet;
 
