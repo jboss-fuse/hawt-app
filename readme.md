@@ -51,7 +51,7 @@ archive | hawt-app.archive | Archive file that will be created. **Default:** *${
 archiveClassifier | hawt-app.archiveClassifier | The GAV classifier that will be assigned to the archive. **Default:** *app*
 archivePrefix | hawt-app.archivePrefix | the path prefixed on the files within the archive. **Default:** *${project.artifactId}-${project.version}-app/*
 main | hawt-app.main | The main class that will be executed by the launch process.
-source | hawt-app.source | If this directory exists, then it's contents are used to augment the contents of the application assembly. **Default:** *${basedir}/src/main/hawt-app*
+source | hawt-app.source | If this directory exists, then it's contents are used to augment the contents of the application assembly. For example it could be used to add an etc/defaults script to setup environment variables. **Default:** *${basedir}/src/main/hawt-app*
 
 Env Configuration Options
 -------------------------
@@ -71,7 +71,7 @@ Runtime Defaults Configuration
 ------------------------------
 
 If an `${APP_HOME}/etc/defaults` file exists it will be sourced in by the run script and you can use this to set
-all the enviorment variables if you wish.  You can additonally also modify the values of the following variables if you want to change the defaults.
+all the environment variables if you wish.  You can additonally also modify the values of the following variables if you want to change the defaults.
 
 Enviorment Variable | Description
 ------------------- | -----------
