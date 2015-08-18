@@ -52,3 +52,29 @@ archiveClassifier | hawt-boot.archiveClassifier | The GAV classifier that will b
 archivePrefix | hawt-boot.archivePrefix | the path prefixed on the files within the archive. **Default:** *${project.artifactId}-${project.version}-app/*
 main | hawt-boot.main | The main class that will be executed by the boot process.
 
+Env Configuration Options
+-------------------------
+
+There are several enviorment variables that can be set before running the `bin\run` script to customize your app's startup.  
+
+Enviorment Variable | Description
+------------------- | -----------
+JVM_ARGS | Options that will be passed to the JVM.  Use it to set options like the max JVM memory (-Xmx1G).
+JVM_DEBUG_ARGS | JVM debug arguments
+JVM_DEBUG | If set to true, then enables JVM debug on port 5005
+JVM_AGENT | Set this to pass any JVM agent arguments for stuff like profilers
+SYSTEM_PROPERTIES | Add your '-D' system properties in this enviorment varible.
+MAIN_ARGS | Arguments that will be passed to you application's main method.
+
+Runtime Defaults Configuration
+------------------------------
+
+If an `${APP_HOME}/etc/defaults` file exists it will be sourced in by the run script and you can use this to set
+all the enviorment variables if you wish.  You can additonally also modify the values of the following variables if you want to change the defaults.
+
+Enviorment Variable | Description
+------------------- | -----------
+MAIN | The main class that will be executed.
+APP | The name of this app, if supported by your system this will be displayed as the process name
+CLASSPATH | The classpath of the java application
+
