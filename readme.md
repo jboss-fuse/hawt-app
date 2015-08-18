@@ -46,9 +46,9 @@ The following table contains the configuration properties you can set either in 
 
 Name | Maven Property | Description 
 -----| -------------- | -----------
-assembly | hawt-boot.assembly | Directory where the application assembly will be created. _Default:_ *${project.build.directory}/hawt-boot*
-archive | hawt-boot.archive | Archive file that will be created. _Default:_ *${project.build.directory}/${project.artifactId}-${project.version}-app.tar.gz*
-archiveClassifier | hawt-boot.archiveClassifier | The GAV classifier that will be assigned to the archive. _Default:_ *app*
-archivePrefix | hawt-boot.archivePrefix | the path prefixed on the files within the archive. _Default:_ *${project.artifactId}-${project.version}-app/*
+assembly | hawt-boot.assembly | Directory where the application assembly will be created. **Default:** *${project.build.directory}/hawt-boot*
+archive | hawt-boot.archive | Archive file that will be created. **Default:** *${project.build.directory}/${project.artifactId}-${project.version}-app.tar.gz*
+archiveClassifier | hawt-boot.archiveClassifier | The GAV classifier that will be assigned to the archive. **Default:** *app*
+archivePrefix | hawt-boot.archivePrefix | the path prefixed on the files within the archive. **Default:** *${project.artifactId}-${project.version}-app/*
 main | hawt-boot.main | The main class that will be executed by the boot process.
 
