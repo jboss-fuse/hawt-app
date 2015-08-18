@@ -11,7 +11,7 @@ Usage
 You can use it on any mvn module which contains a class that can be run from the CLI.  For example if your class containning is `org.apache.camel.cdi.Main`, then 
 run:
 
-    > mvn package org.jboss.hawt.boot:hawt-boot-maven-plugin:1.0-SNAPSHOT:build -Dhawt-boot.main=org.apache.camel.cdi.Main
+    mvn package org.jboss.hawt.boot:hawt-boot-maven-plugin:1.0-SNAPSHOT:build -Dhawt-boot.main=org.apache.camel.cdi.Main
     
 
 To create the application archive as part of you default build for the module, add the a plugin confiuration similar to the following to your maven module:
