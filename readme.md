@@ -65,7 +65,7 @@ JVM_DEBUG_ARGS | JVM debug arguments
 JVM_DEBUG | If set to true, then enables JVM debug on port 5005
 JVM_AGENT | Set this to pass any JVM agent arguments for stuff like profilers
 SYSTEM_PROPERTIES | Add your '-D' system properties in this enviorment varible.
-MAIN_ARGS | Arguments that will be passed to you application's main method.
+MAIN_ARGS | Arguments that will be passed to you application's main method.  **Default:** the arguments passed to the `bin/run` script.
 
 Runtime Defaults Configuration
 ------------------------------
@@ -76,6 +76,6 @@ all the enviorment variables if you wish.  You can additonally also modify the v
 Enviorment Variable | Description
 ------------------- | -----------
 MAIN | The main class that will be executed.
-APP | The name of this app, if supported by your system this will be displayed as the process name
+APP | The name of this app, if supported by your system this will be displayed as the process name. **Default:** *${project.artifactId}*
 CLASSPATH | The classpath of the java application
 
