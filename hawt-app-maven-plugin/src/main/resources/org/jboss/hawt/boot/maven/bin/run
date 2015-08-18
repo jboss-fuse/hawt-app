@@ -74,7 +74,7 @@ if [ ! -z "${APP}" ] ; then
     fi
 fi
 
-echo "Booting application in folder: $APP_HOME"
+echo "Launching application in folder: $APP_HOME"
 if [ ! -z "${MAIN_ARGS}" ] ; then
   echo "Running exec ${EXEC_ARGS} ${JVM_DEBUG_ARGS} ${JVM_AGENT} ${JVM_ARGS} ${SYSTEM_PROPERTIES} -classpath ${CLASSPATH} ${MAIN} ${MAIN_ARGS}"
   exec ${EXEC_ARGS} ${JVM_EXEC} ${JVM_DEBUG_ARGS} ${JVM_AGENT} ${JVM_ARGS} ${SYSTEM_PROPERTIES} -classpath ${CLASSPATH} ${MAIN} ${MAIN_ARGS}

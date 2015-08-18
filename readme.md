@@ -1,7 +1,7 @@
-Hawt Boot
-=========
+Hawt App
+========
 
-Makes it easy to create and boot simple flat classpath based main app in java.  It creates a .tar.gz that contains all your app's runtime
+Makes it easy to create and launch simple flat classpath based main app in java.  It creates a .tar.gz that contains all your app's runtime
 dependencies in the lib dir and creates a bin/run script that handles setting up your classpath in the right order and executing your
 java with the right arguments if your using a [Maven](http://maven.apache.org) based build
 
@@ -11,14 +11,14 @@ Usage
 You can use it on any mvn module which contains a class that can be run from the CLI.  For example if your class containning is `org.apache.camel.cdi.Main`, then 
 run:
 
-    mvn package org.jboss.hawt.boot:hawt-boot-maven-plugin:1.0-SNAPSHOT:build -Dhawt-boot.main=org.apache.camel.cdi.Main
+    mvn package org.jboss.hawt.app:hawt-app-maven-plugin:1.0-SNAPSHOT:build -Dhawt-app.main=org.apache.camel.cdi.Main
     
 
 To create the application archive as part of you default build for the module, add the a plugin confiuration similar to the following to your maven module:
 
     <plugin>
-      <groupId>org.jboss.hawt.boot</groupId>
-      <artifactId>hawt-boot-maven-plugin</artifactId>
+      <groupId>org.jboss.hawt.app</groupId>
+      <artifactId>hawt-app-maven-plugin</artifactId>
       <version>1.0-SNAPSHOT</version>
       <executions>
         <execution>
@@ -36,8 +36,8 @@ To create the application archive as part of you default build for the module, a
 Produced Artifacts
 ------------------
 
-Using the build goal of this plugin will create a tar.gz archive at: `target/${project.artifactId}-${project.version}-app.tar.gz` and an unpacked version of that at `target/hawt-boot`.  If you want to test out booting up you app, just
-executed the `target/hawt-boot/bin/run` script.
+Using the build goal of this plugin will create a tar.gz archive at: `target/${project.artifactId}-${project.version}-app.tar.gz` and an unpacked version of that at `target/hawt-app`.  If you want to test out launching your app, just
+execute the `target/hawt-app/bin/run` script.
 
 Plugin Configuration Options
 ----------------------------
@@ -46,12 +46,12 @@ The following table contains the configuration properties you can set either in 
 
 Name | Maven Property | Description 
 -----| -------------- | -----------
-assembly | hawt-boot.assembly | Directory where the application assembly will be created. **Default:** *${project.build.directory}/hawt-boot*
-archive | hawt-boot.archive | Archive file that will be created. **Default:** *${project.build.directory}/${project.artifactId}-${project.version}-app.tar.gz*
-archiveClassifier | hawt-boot.archiveClassifier | The GAV classifier that will be assigned to the archive. **Default:** *app*
-archivePrefix | hawt-boot.archivePrefix | the path prefixed on the files within the archive. **Default:** *${project.artifactId}-${project.version}-app/*
-main | hawt-boot.main | The main class that will be executed by the boot process.
-source | hawt-boot.source | If this directory exists, then it's contents are used to augment the contents of the application assembly. **Default:** *${basedir}/src/main/hawt-boot*
+assembly | hawt-app.assembly | Directory where the application assembly will be created. **Default:** *${project.build.directory}/hawt-app*
+archive | hawt-app.archive | Archive file that will be created. **Default:** *${project.build.directory}/${project.artifactId}-${project.version}-app.tar.gz*
+archiveClassifier | hawt-app.archiveClassifier | The GAV classifier that will be assigned to the archive. **Default:** *app*
+archivePrefix | hawt-app.archivePrefix | the path prefixed on the files within the archive. **Default:** *${project.artifactId}-${project.version}-app/*
+main | hawt-app.main | The main class that will be executed by the launch process.
+source | hawt-app.source | If this directory exists, then it's contents are used to augment the contents of the application assembly. **Default:** *${basedir}/src/main/hawt-app*
 
 Env Configuration Options
 -------------------------

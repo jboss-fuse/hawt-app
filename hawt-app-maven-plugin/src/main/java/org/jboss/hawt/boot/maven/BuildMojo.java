@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package org.jboss.hawt.boot.maven;
+package org.jboss.hawt.app.maven;
 
 import org.apache.maven.artifact.Artifact;
 import org.apache.maven.plugin.MojoExecutionException;
@@ -44,7 +44,7 @@ import java.util.regex.Matcher;
 import static org.codehaus.plexus.archiver.util.DefaultFileSet.fileSet;
 
 /**
- * Builds a hawt boot assembly.
+ * Builds a hawt app assembly.
  *
  */
 @Mojo( name = "build", requiresDependencyResolution = ResolutionScope.RUNTIME,
@@ -52,12 +52,12 @@ import static org.codehaus.plexus.archiver.util.DefaultFileSet.fileSet;
 public class BuildMojo extends AbstractDependencyFilterMojo {
 
     /**
-     * Directory of resources use to augment the files in the hawt-boot archive.
+     * Directory of resources use to augment the files in the hawt-app archive.
      *
      * @since 2.0
      */
-    @Parameter( property = "hawt-boot.source",
-                defaultValue = "${basedir}/src/main/hawt-boot" )
+    @Parameter( property = "hawt-app.source",
+                defaultValue = "${basedir}/src/main/hawt-app" )
     protected File source;
 
     /**
@@ -65,26 +65,26 @@ public class BuildMojo extends AbstractDependencyFilterMojo {
      *
      * @since 2.0
      */
-    @Parameter( property = "hawt-boot.assembly",
-                defaultValue = "${project.build.directory}/hawt-boot" )
+    @Parameter( property = "hawt-app.assembly",
+                defaultValue = "${project.build.directory}/hawt-app" )
     protected File assembly;
 
-    @Parameter( property = "hawt-boot.archive",
+    @Parameter( property = "hawt-app.archive",
                 defaultValue = "${project.build.directory}/${project.artifactId}-${project.version}-app.tar.gz" )
     protected File archive;
 
-    @Parameter( property = "hawt-boot.archiveClassifier",
+    @Parameter( property = "hawt-app.archiveClassifier",
                 defaultValue = "app" )
     protected String archiveClassifier;
 
-    @Parameter( property = "hawt-boot.archivePrefix",
+    @Parameter( property = "hawt-app.archivePrefix",
                 defaultValue = "${project.artifactId}-${project.version}-app/" )
     protected String archivePrefix;
 
     /**
      * The main class to execute for the assembly.
      */
-    @Parameter(property = "hawt-boot.main")
+    @Parameter(property = "hawt-app.main")
     protected String main;
 
     @Component(role= Archiver.class, hint = "tar")
@@ -161,7 +161,7 @@ public class BuildMojo extends AbstractDependencyFilterMojo {
             try {
                 FileUtils.copyDirectoryStructure(source, assembly);
             } catch (IOException e) {
-                throw new MojoExecutionException("Could copy the hawt-boot resources", e);
+                throw new MojoExecutionException("Could copy the hawt-app resources", e);
             }
         }
 
