@@ -41,6 +41,7 @@ import org.apache.maven.plugins.annotations.ResolutionScope;
 import org.apache.maven.project.MavenProjectHelper;
 import org.apache.maven.shared.artifact.filter.collection.ArtifactsFilter;
 import org.codehaus.plexus.archiver.Archiver;
+import org.codehaus.plexus.archiver.tar.TarArchiver;
 import org.codehaus.plexus.util.FileUtils;
 import org.codehaus.plexus.util.IOUtil;
 import org.codehaus.plexus.util.StringUtils;
@@ -169,6 +170,7 @@ public class BuildMojo extends AbstractDependencyFilterMojo {
             }
         }
 
+        ((TarArchiver)archiver).setCompression(TarArchiver.TarCompressionMethod.gzip);
         archiver.setDestFile(archive);
         archiver.addFileSet(fileSet(assembly).prefixed(archivePrefix).includeExclude(null, new String[]{"bin/*"}).includeEmptyDirs(true));
         archiver.setFileMode(0755);
