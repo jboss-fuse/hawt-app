@@ -1,7 +1,7 @@
 Hawt App
 ========
 
-The Hawt App maven(http://maven.apache.org) based build plugin makes it easy to create and 
+The Hawt App [maven](http://maven.apache.org) based build plugin makes it easy to create and 
 launch simple java apps that use a flat classpath and a class with a
 main.  It handles creating a `tar.gz` archive that contains all your app's 
 runtime dependencies in the lib directory and creates a `bin/run` script that handles setting 
