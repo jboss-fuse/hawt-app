@@ -28,7 +28,7 @@
 
   <groupId>org.jboss.hawt.app</groupId>
   <artifactId>hawt-app-project</artifactId>
-  <version>1.2-SNAPSHOT</version>
+  <version>1.2</version>
   <packaging>pom</packaging>
   
   <name>${project.artifactId}</name>
@@ -62,7 +62,7 @@
     <connection>scm:git:https://github.com/jboss-fuse/hawt-app.git</connection>
     <developerConnection>scm:git:ssh://git@github.com:jboss-fuse/hawt-app.git</developerConnection>
     <url>https://github.com/jboss-fuse/hawt-app/tree/master</url>
-    <tag>HEAD</tag>
+    <tag>hawt-app-project-1.2</tag>
   </scm>
   
   <developers>
