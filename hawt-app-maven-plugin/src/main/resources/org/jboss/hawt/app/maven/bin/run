@@ -30,24 +30,6 @@ if [ -f "${APP_HOME}/etc/defaults" ] ; then
     source ${APP_HOME}/etc/defaults
 fi
 
-# Add the jolokia if found in the app and configured.
-if [ -f "$APP_HOME/lib/jolokia-agent.jar" ]; then
-    if [ -z "$JOLOKIA_PORT" ]; then
-      JOLOKIA_ARGS=""
-    else
-      if [ -z "$AGENT_ID" ]; then
-        AGENT_ID="${APP}"
-      fi
-      JOLOKIA_ARGS="-javaagent:$APP_HOME/jolokia-agent.jar=host=0.0.0.0,port=$JOLOKIA_PORT,agentId=$AGENT_ID"
-    fi
-
-  if [ -z "$JVM_AGENT" ]; then
-    JVM_AGENT="$JOLOKIA_ARGS"
-  else
-    JVM_AGENT="$JVM_AGENT $JOLOKIA_ARGS"
-  fi
-fi
-
 JVM_DEBUG_ARGS="$JVM_DEBUG_ARGS"
 if [ -z "$JVM_DEBUG_ARGS" ]; then
   if [ ! -z "$JVM_DEBUG" ] && [ "$JVM_DEBUG" == 'TRUE' ]; then
