@@ -28,7 +28,7 @@
 
   <groupId>org.jboss.hawt.app</groupId>
   <artifactId>hawt-app-project</artifactId>
-  <version>1.3-SNAPSHOT</version>
+  <version>1.2.0.redhat-621030</version>
   <packaging>pom</packaging>
   
   <name>${project.artifactId}</name>
