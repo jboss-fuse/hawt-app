@@ -144,7 +144,7 @@ public class BuildMojo extends AbstractDependencyFilterMojo {
         }
 
         // Finally lets write the classpath.
-        String classpathTxt = StringUtils.join(classpath.iterator(), "\r\n")+"\r\n";
+        String classpathTxt = StringUtils.join(classpath.iterator(), "\n")+"\n";
         try {
             FileUtils.fileWrite(new File(libDir, ".classpath"), classpathTxt);
         } catch (IOException e) {
