@@ -66,7 +66,6 @@ There are several environment variables that can be set before running the `bin/
 
 Environment Variable | Description
 -------------------- | -----------
-JAVA_APP_USER | UID under which the application should run
 JAVA_APP_DIR | Directory holding the application (default: parent directory of the run script)
 JAVA_OPTIONS | Options that will be passed to the JVM.  Use it to set options like the max JVM memory (-Xmx1G).
 JAVA_ENABLE_DEBUG | If set to true, then enables JVM debugging  
